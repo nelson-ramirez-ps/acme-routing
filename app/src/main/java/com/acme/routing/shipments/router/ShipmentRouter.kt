@@ -24,7 +24,7 @@ class ShipmentRouter(shipmentsRepository: ShipmentsRepository) {
      * to be called inline
      *
      */
-    private val _shipmentsList = shipmentsRepository.shipments
+    private val _shipmentsList = shipmentsRepository.shipments.toMutableList()
 
     /**
      * Assigns the best available [Shipment] to the given [Driver] based on the
@@ -37,6 +37,7 @@ class ShipmentRouter(shipmentsRepository: ShipmentsRepository) {
         return try {
             val bestShipment = findBestScoringShipment(driver.name, _shipmentsList)
             driver.shipment = bestShipment
+            _shipmentsList.remove(bestShipment)
             Result.success(driver)
         } catch (e: Throwable) {
             Result.failure(e)

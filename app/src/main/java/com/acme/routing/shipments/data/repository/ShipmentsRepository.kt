@@ -3,8 +3,8 @@ package com.acme.routing.shipments.data.repository
 import com.acme.domain.models.Shipment
 
 class ShipmentsRepository(dataSource: ShipmentsDataSource) {
-    val shipments: MutableList<Shipment> by lazy {
-        dataSource.shipments.toMutableList()
+    val shipments: List<Shipment> by lazy {
+        dataSource.shipments
     }
 }
 
